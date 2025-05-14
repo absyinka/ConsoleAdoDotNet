@@ -111,8 +111,8 @@ namespace ConsoleAdoDotNet
         public void ViewEmployeeById()
         {
             Console.Write("\nEnter Employee ID: ");
-            int id;
-            if (!int.TryParse(Console.ReadLine(), out id))
+
+            if (!Guid.TryParse(Console.ReadLine(), out Guid id))
             {
                 Console.WriteLine("Invalid ID format.");
                 return;
@@ -156,8 +156,8 @@ namespace ConsoleAdoDotNet
         public void UpdateEmployee()
         {
             Console.Write("\nEnter Employee ID to update: ");
-            int id;
-            if (!int.TryParse(Console.ReadLine(), out id))
+
+            if (!Guid.TryParse(Console.ReadLine(), out Guid id))
             {
                 Console.WriteLine("Invalid ID format.");
                 return;
@@ -204,6 +204,7 @@ namespace ConsoleAdoDotNet
             Console.Write("Hire Date (yyyy-mm-dd): ");
             string hireDateStr = Console.ReadLine()!;
             DateTime? hireDate = null;
+
             if (!string.IsNullOrEmpty(hireDateStr) && DateTime.TryParse(hireDateStr, out DateTime parsedDate))
             {
                 hireDate = parsedDate;
@@ -256,8 +257,8 @@ namespace ConsoleAdoDotNet
         public void DeleteEmployee()
         {
             Console.Write("\nEnter Employee ID to delete: ");
-            int id;
-            if (!int.TryParse(Console.ReadLine(), out id))
+
+            if (!Guid.TryParse(Console.ReadLine(), out Guid id))
             {
                 Console.WriteLine("Invalid ID format.");
                 return;

@@ -29,7 +29,7 @@ while (true)
             await employeeService.AddEmployee();
             break;
         case 2:
-            employeeService.ViewAllEmployees();
+            await employeeService.ViewAllEmployees();
             break;
         case 3:
             employeeService.ViewEmployeeById();
