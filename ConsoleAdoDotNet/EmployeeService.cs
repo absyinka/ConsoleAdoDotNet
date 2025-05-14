@@ -76,32 +76,28 @@ namespace ConsoleAdoDotNet
             }
         }
 
-        public void ViewAllEmployees()
+        public async Task ViewAllEmployees()
         {
             Console.WriteLine("\nAll Employees");
 
             ConsoleTable table = new("Name", "Email", "Department", "Hire Date", "Salary");
-            //Console.WriteLine("ID\tName\t\tEmail\t\tDepartment\tHire Date\tSalary");
 
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new(_connectionString))
             {
                 string query = "SELECT * FROM Employees";
-                SqlCommand command = new SqlCommand(query, connection);
+                SqlCommand command = new(query, connection);
 
                 try
                 {
-                    connection.Open();
-                    SqlDataReader reader = command.ExecuteReader();
+                    await connection.OpenAsync();
+                    SqlDataReader reader = await command.ExecuteReaderAsync();
 
                     while (reader.Read())
                     {
                         table.AddRow($"{reader["FirstName"]} {reader["LastName"]}", reader["Email"], reader["Department"], ((DateTime)reader["HireDate"]).ToShortDateString(), reader["Salary"]);
-                        //Console.WriteLine($"{reader["Id"]}\t{reader["FirstName"]} {reader["LastName"]}\t" +
-                        //                $"{reader["Email"]}\t{reader["Department"]}\t" +
-                        //                $"{((DateTime)reader["HireDate"]).ToShortDateString()}\t{reader["Salary"]}");
                     }
 
-                    table.Write(Format.Alternative);
+                    table.Write(Format.Default);
 
                     reader.Close();
                 }
